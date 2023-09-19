@@ -5,6 +5,7 @@ export DISPLAY=":$DISPLAY_NUM"
 
 VERBOSE=${VERBOSE:-""}
 ASKUI_CONTROLLER_ARGS=${ASKUI_CONTROLLER_ARGS:-""}
+GOOGLE_CHROME_ARGS=${GOOGLE_CHROME_ARGS:-""}
 if [ -n "$VERBOSE" ]; then
     ASKUI_CONTROLLER_ARGS="$ASKUI_CONTROLLER_ARGS --log-level=verbose"
 fi
@@ -90,7 +91,7 @@ fi
 DISPLAY="$DISPLAY" ./askui-ui-controller.AppImage --appimage-extract-and-run  --no-sandbox -m -d 0 --host "0.0.0.0" ${ASKUI_CONTROLLER_ARGS} &
 echo Extracting and starting AskUIController...
 
-/usr/bin/google-chrome-stable --no-sandbox --start-maximized --no-first-run --enable-automation --disable-notifications &
+/usr/bin/google-chrome-stable --no-sandbox --start-maximized --no-first-run --enable-automation --disable-notifications ${GOOGLE_CHROME_ARGS} &
 echo Starting Google Chrome...
 
 wait
