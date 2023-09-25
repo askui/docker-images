@@ -14,7 +14,7 @@ EXPOSE 6769
 # phone
 EXPOSE 5555
 
-ARG ASKUI_CONTROLLER_VERSION=0.11.2
+ARG ASKUI_CONTROLLER_VERSION=0.12.0
 RUN curl -L --progress-bar --retry 5 --continue-at - -o "/askui-ui-controller.AppImage" "https://files.askui.com/releases/askui-ui-controller/v${ASKUI_CONTROLLER_VERSION}/linux/x64/askui-ui-controller.AppImage" && \
     chmod +x /askui-ui-controller.AppImage
 
