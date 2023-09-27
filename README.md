@@ -28,13 +28,14 @@ docker run --rm --privileged -p 6080:6080 askui-ui-controller:v0.12.0-android-12
 ### Chrome
 
 ```shell
-docker build -t ui-controller:chrome -f askui-ui-controller/chrome/Dockerfile .
+cd askui-ui-controller/chrome
+docker build -t ui-controller:chrome .
 ```
 
 Possible build-args:
 
 * `SELENOID_VNC_CHROME_VERSION` (default 117): Only major release versions supported at the moment.
-* `ASKUI_CONTROLLER_VERSION`: Default is latest version. Currently `0.12.0`.
+* `ASKUI_CONTROLLER_VERSION`: Default is latest version. Currently `0.11.2`.
 
 Enable VNC:
 
@@ -43,5 +44,6 @@ Enable VNC:
 ### Android
 
 ```shell
-docker build -t ui-controller:android -f askui-controller/android/Dockerfile .
+cd askui-ui-controller/android
+docker build -t ui-controller:android .
 ```
