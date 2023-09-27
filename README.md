@@ -33,7 +33,7 @@ docker build -t ui-controller:chrome -f askui-ui-controller/chrome/Dockerfile .
 
 Possible build-args:
 
-* `CHROME_VERSION` (default 116): Only major release version supported at the moment.
+* `SELENOID_VNC_CHROME_VERSION` (default 117): Only major release versions supported at the moment.
 * `ASKUI_CONTROLLER_VERSION`: Default is latest version. Currently `0.12.0`.
 
 Enable VNC:
