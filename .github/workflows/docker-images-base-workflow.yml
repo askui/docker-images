@@ -6,10 +6,6 @@ on:
         description: Version of the linux x64 binaries 
         required: true
         type: string
-      s3_uri:
-        description: S3 URI of the linux x64 binaries
-        required: true
-        type: string
       environment_name:
         required: true
         type: string
@@ -21,10 +17,6 @@ on:
     inputs:
       version:
         description: Version of the linux x64 binaries 
-        required: true
-        type: string
-      s3_uri:
-        description: S3 URI of the linux x64 binaries
         required: true
         type: string
       environment_name:
