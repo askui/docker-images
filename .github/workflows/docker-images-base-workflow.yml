@@ -48,7 +48,7 @@ jobs:
         with:
           push: true
           tags: askuigmbh/askui-docker-images-repository-playground:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}-amd64
-          context: .
+          context: ./askui-ui-controller/chrome
           file: askui-ui-controller/${{ inputs.environment_name }}/Dockerfile
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -61,7 +61,7 @@ jobs:
         with:
           push: true
           tags: askuigmbh/askui-docker-images-repository-playground:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}
-          context: .
+          context: ./askui-ui-controller/chrome
           file: runner-docker/${{ inputs.environment_name }}/Dockerfile
           cache-from: type=gha
           cache-to: type=gha,mode=max
