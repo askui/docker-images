@@ -47,3 +47,7 @@ Enable VNC:
 cd askui-ui-controller/android
 docker build -t ui-controller:android .
 ```
+
+Possible build-args:
+
+* `ASKUI_CONTROLLER_VERSION`: Default is latest version. Currently `0.11.2`.
