@@ -1,0 +1,29 @@
+name: Build and Release Docker Images
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version of the linux x64 binaries 
+        required: true
+        type: string
+      s3_uri:
+        description: S3 URI of the linux x64 binaries
+        required: true
+        type: string
+jobs:
+  build_and_release_all_docker_images:
+    strategy:
+      max-parallel: 1
+      matrix:
+        environment: 
+          - name: chrome
+            version: 117
+          - name: android
+            version: 12.0
+    uses: ./.github/docker-images-base-workflow.yml
+    with:
+      version: ${{ inputs.version }}
+      s3_uri: ${{ inputs.s3_uri }}
+      environment_name: ${{ matrix.environment.name }}
+      environment_version: ${{ matrix.environment.version}}
+    secrets: inherit
