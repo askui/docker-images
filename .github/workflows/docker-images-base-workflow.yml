@@ -26,6 +26,10 @@ on:
       environment_version:
         required: true
         type: string
+
+env:
+  DOCKER_REPOSITORY: askui-docker-images-repository-playground
+
 jobs:
   build_and_release_docker_images:
     name: Build and Release Docker Image
@@ -47,7 +51,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: askuigmbh/askui-docker-images-repository-playground:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}-amd64
+          tags: askuigmbh/${{ DOCKER_REPOSITORY }}:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}-amd64
           context: ./askui-ui-controller/chrome
           file: askui-ui-controller/${{ inputs.environment_name }}/Dockerfile
           cache-from: type=gha
@@ -60,7 +64,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: askuigmbh/askui-docker-images-repository-playground:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}
+          tags: askuigmbh/${{ DOCKER_REPOSITORY }}:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}
           context: ./askui-ui-controller/android
           file: askui-ui-controller/${{ inputs.environment_name }}/Dockerfile
           cache-from: type=gha
