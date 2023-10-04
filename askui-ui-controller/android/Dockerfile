@@ -20,5 +20,3 @@ RUN curl -L --progress-bar --retry 5 --continue-at - -o "/askui-ui-controller.Ap
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-
-USER askui
