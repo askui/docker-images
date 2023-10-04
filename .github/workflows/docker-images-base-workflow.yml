@@ -29,7 +29,7 @@ on:
 jobs:
   build_and_release_docker_images:
     name: Build and Release Docker Image
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: [ubuntu-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
