@@ -51,7 +51,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: askuigmbh/${{ DOCKER_REPOSITORY }}:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}-amd64
+          tags: askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}-amd64
           context: ./askui-ui-controller/chrome
           file: askui-ui-controller/${{ inputs.environment_name }}/Dockerfile
           cache-from: type=gha
@@ -64,7 +64,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: askuigmbh/${{ DOCKER_REPOSITORY }}:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}
+          tags: askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}
           context: ./askui-ui-controller/android
           file: askui-ui-controller/${{ inputs.environment_name }}/Dockerfile
           cache-from: type=gha
