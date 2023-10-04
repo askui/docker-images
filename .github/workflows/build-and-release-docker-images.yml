@@ -13,7 +13,7 @@ jobs:
       matrix:
         environment: 
           - name: chrome
-            version: 117
+            version: 117.0
           - name: android
             version: 12.0
     uses: ./.github/docker-images-base-workflow.yml

@@ -10,7 +10,7 @@ The images are published to the Docker Hub registry at [askui Docker Registry](h
 ### Chrome
 
 ```shell
-docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 askuigmbh/askui-ui-controller:v0.12.0-chrome-117-amd64
+docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 askuigmbh/askui-ui-controller:0.11.2-chrome-117.0-amd64
 ```
 
 > Password for VNC is `askui`.
@@ -18,7 +18,7 @@ docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 askuigmbh/askui-ui-contr
 ### Android
 
 ```shell
-docker run --rm --privileged -p 6080:6080 askui-ui-controller:v0.12.0-android-12-x86
+docker run --rm --privileged -p 6080:6080 askui-ui-controller:0.11.2-android-12-x86
 ```
 
 > VNC is at port `6080`.
@@ -34,7 +34,7 @@ docker build -t ui-controller:chrome .
 
 Possible build-args:
 
-* `SELENOID_VNC_CHROME_VERSION` (default 117): Only major release versions supported at the moment.
+* `SELENOID_VNC_CHROME_VERSION` (default 117.0): Only major release versions supported at the moment.
 * `ASKUI_CONTROLLER_VERSION`: Default is latest version. Currently `0.11.2`.
 
 Enable VNC:
