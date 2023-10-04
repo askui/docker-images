@@ -18,7 +18,7 @@ docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 askuigmbh/askui-ui-contr
 ### Android
 
 ```shell
-docker run --rm --privileged -p 6080:6080 askui-ui-controller:0.11.2-android-12-x86
+docker run --rm --privileged -p 6080:6080 askuigmbh/askui-ui-controller:0.11.2-android-12.0
 ```
 
 > VNC is at port `6080`.
