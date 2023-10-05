@@ -34,7 +34,7 @@ docker build -t ui-controller:chrome .
 
 Possible build-args:
 
-* `SELENOID_VNC_CHROME_VERSION` (default 117.0): Only major release versions supported at the moment.
+* `CHROME_VERSION` (default 117.0.5938.132): All chrome versions.
 * `ASKUI_CONTROLLER_VERSION`: Default is latest version. Currently `0.11.2`.
 
 Enable VNC:
