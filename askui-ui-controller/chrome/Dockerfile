@@ -1,9 +1,9 @@
 ARG CHROME_VERSION=117.0
-FROM selenium/node-chrome:${CHROME_VERSION}
+FROM selenium/standalone-chrome:${CHROME_VERSION}
 
 USER root
 
-RUN usermod -l askui selenium && \
+RUN usermod -l askui seluser && \
     usermod -d /home/askui -m askui && \
     chown -R askui:root /home/askui && \
     echo "askui:askui" | chpasswd
