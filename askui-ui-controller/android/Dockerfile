@@ -1,4 +1,5 @@
-FROM grichner/docker-android-x86-12.0
+ARG ANDROID_VERSION=13.0
+FROM budtmo/docker-android:emulator_${ANDROID_VERSION}
 
 USER root
 

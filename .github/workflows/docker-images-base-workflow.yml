@@ -69,6 +69,8 @@ jobs:
           file: askui-ui-controller/${{ inputs.environment_name }}/Dockerfile
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            "ANDROID_VERSION=${{ inputs.environment_version }}"
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v3
         with:
