@@ -3,7 +3,7 @@ on:
   workflow_call:
     inputs:
       version:
-        description: Version of the linux x64 binaries 
+        description: Version of the linux x64 binaries
         required: true
         type: string
       environment_name:

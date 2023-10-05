@@ -1,8 +1,6 @@
 ARG CHROME_VERSION=117.0
 FROM selenium/node-chrome:${CHROME_VERSION}
 
-## TODO Install VNC
-
 USER root
 
 RUN usermod -l askui selenium && \
