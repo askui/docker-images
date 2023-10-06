@@ -3,38 +3,42 @@ SCREEN_RESOLUTION=${SCREEN_RESOLUTION:-"1920x1080x24"}
 DISPLAY_NUM=99
 export DISPLAY=":$DISPLAY_NUM"
 
-VERBOSE=${VERBOSE:-""}
-ASKUI_CONTROLLER_ARGS=${ASKUI_CONTROLLER_ARGS:-""}
-GOOGLE_CHROME_ARGS=${GOOGLE_CHROME_ARGS:-""}
-if [ -n "$VERBOSE" ]; then
-    ASKUI_CONTROLLER_ARGS="$ASKUI_CONTROLLER_ARGS --log-level=verbose"
-fi
+# DONE - Moved
 
-clean() {
-  if [ -n "$FILESERVER_PID" ]; then
-    kill -TERM "$FILESERVER_PID"
-  fi
-  if [ -n "$XSELD_PID" ]; then
-    kill -TERM "$XSELD_PID"
-  fi
-  if [ -n "$XVFB_PID" ]; then
-    kill -TERM "$XVFB_PID"
-  fi
-  if [ -n "$DRIVER_PID" ]; then
-    kill -TERM "$DRIVER_PID"
-  fi
-  if [ -n "$X11VNC_PID" ]; then
-    kill -TERM "$X11VNC_PID"
-  fi
-  if [ -n "$DEVTOOLS_PID" ]; then
-    kill -TERM "$DEVTOOLS_PID"
-  fi
-  if [ -n "$PULSE_PID" ]; then
-    kill -TERM "$PULSE_PID"
-  fi
-}
+# VERBOSE=${VERBOSE:-""}
+# ASKUI_CONTROLLER_ARGS=${ASKUI_CONTROLLER_ARGS:-""}
+# if [ -n "$VERBOSE" ]; then
+#     ASKUI_CONTROLLER_ARGS="$ASKUI_CONTROLLER_ARGS --log-level=verbose"
+# fi
+# GOOGLE_CHROME_ARGS=${GOOGLE_CHROME_ARGS:-""}
 
-trap clean SIGINT SIGTERM
+# DONE - Using entrypoint of selenium image
+
+# clean() {
+#   if [ -n "$FILESERVER_PID" ]; then
+#     kill -TERM "$FILESERVER_PID"
+#   fi
+#   if [ -n "$XSELD_PID" ]; then
+#     kill -TERM "$XSELD_PID"
+#   fi
+#   if [ -n "$XVFB_PID" ]; then
+#     kill -TERM "$XVFB_PID"
+#   fi
+#   if [ -n "$DRIVER_PID" ]; then
+#     kill -TERM "$DRIVER_PID"
+#   fi
+#   if [ -n "$X11VNC_PID" ]; then
+#     kill -TERM "$X11VNC_PID"
+#   fi
+#   if [ -n "$DEVTOOLS_PID" ]; then
+#     kill -TERM "$DEVTOOLS_PID"
+#   fi
+#   if [ -n "$PULSE_PID" ]; then
+#     kill -TERM "$PULSE_PID"
+#   fi
+# }
+
+# trap clean SIGINT SIGTERM
 
 if env | grep -q ROOT_CA_; then
   mkdir -p $HOME/.pki/nssdb
@@ -83,11 +87,13 @@ until [ $retcode -eq 0 ]; do
   fi
 done
 
-if [ "$ENABLE_VNC" == "true" ]; then
-    x11vnc -display "$DISPLAY" -passwd askui -shared -forever -loop500 -rfbport 5900 -rfbportv6 5900 -logfile /dev/null &
-    X11VNC_PID=$!
-fi
+# TODO - DONE THROUGH START-VNC and START-NOVNC scripts?
+# if [ "$ENABLE_VNC" == "true" ]; then
+#     x11vnc -display "$DISPLAY" -passwd askui -shared -forever -loop500 -rfbport 5900 -rfbportv6 5900 -logfile /dev/null &
+#     X11VNC_PID=$!
+# fi
 
+# TODO - DISPLAY?
 DISPLAY="$DISPLAY" ./askui-ui-controller.AppImage --appimage-extract-and-run  --no-sandbox -m -d 0 --host "0.0.0.0" ${ASKUI_CONTROLLER_ARGS} &
 echo Extracting and starting AskUIController...
 
