@@ -11,6 +11,8 @@ The images are published to the Docker Hub registry at [askui Docker Registry](h
 
 ```shell
 docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 askuigmbh/askui-ui-controller:0.11.2-chrome-117.0-amd64
+
+docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 -p 7900:7900 ui-controller:chrome
 ```
 
 > Password for VNC is `askui`.
@@ -19,6 +21,8 @@ docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 askuigmbh/askui-ui-contr
 
 ```shell
 docker run --rm --privileged -p 6080:6080 askuigmbh/askui-ui-controller:0.11.2-android-13.0
+
+docker run --rm --privileged -p 6080:6080 -p 5900:5900 -p 6769:6769 ui-controller:android
 ```
 
 > VNC is at port `6080`.
