@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 if env | grep -q ROOT_CA_; then
   mkdir -p $HOME/.pki/nssdb
   certutil -N --empty-password -d sql:$HOME/.pki/nssdb
