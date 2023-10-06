@@ -11,8 +11,6 @@ The images are published to the Docker Hub registry at [askui Docker Registry](h
 
 ```shell
 docker run -p 6769:6769 -p 7900:7900 askuigmbh/askui-ui-controller:0.11.2-chrome-117.0-amd64
-
-docker run -p 6769:6769 -p 7900:7900 ui-controller:chrome
 ```
 
 Ports:
