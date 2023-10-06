@@ -34,7 +34,7 @@ Run args:
 ```shell
 docker run --rm --privileged -p 6080:6080 askuigmbh/askui-ui-controller:0.11.2-android-13.0
 
-docker run --rm --privileged -p 6080:6080 -p 5900:5900 -p 6769:6769 ui-controller:android
+docker run -p 6769:6769 -p 6080:6080 -e WEB_VNC=true --device /dev/kvm ui-controller:android
 ```
 
 > VNC is at port `6080`.
@@ -67,4 +67,5 @@ docker build -t ui-controller:android .
 Possible build-args:
 
 * `ANDROID_VERSION`: `9.0`, `10.0`, `11.0`, `12.0`, `13.0` (default)
+* `EMULATOR_DEVICE`: Default is `Samsung Galaxy S10` (See: [List of devices](https://github.com/budtmo/docker-android/tree/master#list-of-devices))
 * `ASKUI_CONTROLLER_VERSION`: Default is latest version. Currently `0.11.2`.
