@@ -10,12 +10,26 @@ The images are published to the Docker Hub registry at [askui Docker Registry](h
 ### Chrome
 
 ```shell
-docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 askuigmbh/askui-ui-controller:0.11.2-chrome-117.0-amd64
+docker run -p 6769:6769 -p 7900:7900 askuigmbh/askui-ui-controller:0.11.2-chrome-117.0-amd64
 
-docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 -p 7900:7900 ui-controller:chrome
+docker run -p 6769:6769 -p 7900:7900 ui-controller:chrome
 ```
 
-> Password for VNC is `askui`.
+Ports:
+
+* AskUI-Ui-Controller: `6769`
+* No_VNC: `7900`
+
+> Password for No_VNC is `secret`.
+
+Run args:
+
+* `SE_SCREEN_WIDTH`: default is `1360`
+* `SE_SCREEN_HEIGHT`: default is `1020`
+* `SE_SCREEN_DEPTH`: default is `24`
+* `GOOGLE_CHROME_ARGS`: default empty
+* `ASKUI_CONTROLLER_ARGS`: default empty
+* `VERBOSE`: default empty
 
 ### Android
 
