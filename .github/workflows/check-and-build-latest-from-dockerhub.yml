@@ -40,7 +40,7 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          anoutput="${{ fromJSON(needs.check_latest_selenium_chrome_tags.outputs.matrix) }}"
+          anoutput="${{ fromJson(needs.check_latest_selenium_chrome_tags.outputs.matrix) }}"
           echo $anoutput
   # build_and_release_all_docker_images:
   #   needs: check_latest_selenium_chrome_tags
