@@ -33,14 +33,15 @@ jobs:
           # TODO check for existence of image
           # - run: docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:129.0
           echo "matrix={\"include\":$JSON_COMPACT}" >> $GITHUB_OUTPUT
-    test_outputs:
-      needs: check_latest_selenium_chrome_tags
-      name: Get latest selenium chrome tags
-      runs-on: [ubuntu-latest]
-      steps:
-      - run: |
-        anoutput="${{ needs.check_latest_selenium_chrome_tags.outputs.matrix }}"
-        echo $anoutput
+  test_outputs:
+    needs: check_latest_selenium_chrome_tags
+    name: Get latest selenium chrome tags
+    runs-on: [ubuntu-latest]
+    steps:
+      - id: set-matrix
+        run: |
+          anoutput="${{ needs.check_latest_selenium_chrome_tags.outputs.matrix }}"
+          echo $anoutput
   # build_and_release_all_docker_images:
   #   needs: check_latest_selenium_chrome_tags
   #   strategy:
