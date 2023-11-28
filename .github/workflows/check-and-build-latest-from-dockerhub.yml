@@ -16,21 +16,29 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - run: ls -la .github/
-      - run: ls -la .github/workflows
-      - run: .github/workflows/hub-tool tag ls --format json selenium/standalone-chrome | jq -r '.[].Name | if contains("-") then split("-")[1] else . end | split(":")[1]' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > versions.conf
-      - run: echo config.json
+      - run: curl -sL https://hub.docker.com/v2/repositories/selenium/standalone-chrome/tags\?page_size\=100 | jq -r '.results[] | select(.name | contains(".")) | .name | if contains("-") then split("-")[1] else . end | select(. | contains("."))' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > tags.conf
+      - run: echo tags.conf
+      - run: JSON=$(while IFS= read -r line; do jq -n --arg version $line '{"name":"chrome", "version":$version}' done < "tags.conf" | jq -s .)
+      - run: echo $JSON | jq '.[]'
+      - run: JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
+      # TODO check for existence of image
+      # - run: docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:129.0
+      - id: set-matrix
+        run: echo "MATRIX_CONFIG={\"include\":${{JSON_STRING}}" >> $GITHUB_OUTPUT
   # build_and_release_all_docker_images:
+  #   env:
+  #     MATRIX: ${{fromJson(steps.set-matrix.outputs.MATRIX_CONFIG)}}
   #   strategy:
   #     max-parallel: 1
-  #     matrix:
+  #     matrix: ${{MATRIX}}
+  #       TODO remove this
   #       environment: 
   #         - name: chrome
   #           version: 117.0
   #   uses: ./.github/docker-images-base-workflow.yml
   #   with:
-  #     version: ${{ inputs.version }}
-  #     environment_name: ${{ matrix.environment.name }}
-  #     environment_version: TODO get the version
+  #     version: ${{ inputs.version }} ## askui version
+  #     environment_name: ${{ matrix.name }} ## usually chrome
+  #     environment_version: ${{ matrix.version }} ## chrome version
   #   secrets: inherit
 
