@@ -18,7 +18,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - run: curl -sL https://hub.docker.com/v2/repositories/selenium/standalone-chrome/tags\?page_size\=100 | jq -r '.results[] | select(.name | contains(".")) | .name | if contains("-") then split("-")[1] else . end | select(. | contains("."))' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > tags.conf
       - run: echo tags.conf
-      - run: JSON=$(while IFS= read -r line; do jq -n --arg version $line '{"name":"chrome", "version":$version}' done < "tags.conf" | jq -s .)
+      - run: >
+             JSON=$(while IFS= read -r line; do
+                               jq -n --arg version $line '{"name":"chrome", "version":$version}'
+                               done < "tags.conf" | jq -s .)
       - run: echo $JSON | jq '.[]'
       - run: JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
       # TODO check for existence of image
