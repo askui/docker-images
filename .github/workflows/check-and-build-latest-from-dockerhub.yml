@@ -24,7 +24,7 @@ jobs:
       # TODO check for existence of image
       # - run: docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:129.0
       - id: set-matrix
-        run: echo "MATRIX_CONFIG={\"include\":${{JSON_STRING}}" >> $GITHUB_OUTPUT
+        run: echo "MATRIX_CONFIG={\"include\":$JSON_STRING" >> $GITHUB_OUTPUT
   # build_and_release_all_docker_images:
   #   env:
   #     MATRIX: ${{fromJson(steps.set-matrix.outputs.MATRIX_CONFIG)}}
