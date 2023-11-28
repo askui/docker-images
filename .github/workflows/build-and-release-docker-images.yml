@@ -16,7 +16,7 @@ jobs:
             version: 117.0
           - name: android
             version: 13.0
-    uses: ./.github/docker-images-base-workflow.yml
+    uses: ./.github/workflows/docker-images-base-workflow.yml
     with:
       version: ${{ inputs.version }}
       environment_name: ${{ matrix.environment.name }}
