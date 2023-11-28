@@ -16,7 +16,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - run: >
+      - run: |
           curl -sL https://hub.docker.com/v2/repositories/selenium/standalone-chrome/tags\?page_size\=100 | jq -r '.results[] | select(.name | contains(".")) | .name | if contains("-") then split("-")[1] else . end | select(. | contains("."))' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > tags.conf
           echo tags.conf
           JSON=$(while IFS= read -r line; do
@@ -28,7 +28,7 @@ jobs:
       # TODO check for existence of image
       # - run: docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:129.0
       - id: set-matrix
-        run: echo "MATRIX_CONFIG={\"include\":$JSON_STRING" >> $GITHUB_OUTPUT
+        run: echo "MATRIX_CONFIG={\"include\":$JSON_STRING"} >> $GITHUB_OUTPUT
   # build_and_release_all_docker_images:
   #   env:
   #     MATRIX: ${{fromJson(steps.set-matrix.outputs.MATRIX_CONFIG)}}
