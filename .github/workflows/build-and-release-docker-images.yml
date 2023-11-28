@@ -15,7 +15,7 @@ jobs:
           - name: chrome
             version: 117.0
           - name: android
-            version: 12.0
+            version: 13.0
     uses: ./.github/docker-images-base-workflow.yml
     with:
       version: ${{ inputs.version }}

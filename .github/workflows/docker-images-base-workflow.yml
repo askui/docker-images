@@ -3,7 +3,7 @@ on:
   workflow_call:
     inputs:
       version:
-        description: Version of the linux x64 binaries 
+        description: Version of the linux x64 binaries
         required: true
         type: string
       environment_name:
@@ -57,7 +57,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            "SELENOID_VNC_CHROME_VERSION=${{ inputs.environment_version }}"
+            "CHROME_VERSION=${{ inputs.environment_version }}"
             "ASKUI_CONTROLLER_VERSION=${{ inputs.version }}"
       - name: Build and Release Android Docker Image
         if: inputs.environment_name == 'android'
@@ -69,3 +69,11 @@ jobs:
           file: askui-ui-controller/${{ inputs.environment_name }}/Dockerfile
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            "ANDROID_VERSION=${{ inputs.environment_version }}"
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: askuigmbh/${{ env.DOCKER_REPOSITORY }}
