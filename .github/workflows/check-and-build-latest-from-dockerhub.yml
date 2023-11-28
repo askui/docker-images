@@ -32,6 +32,8 @@ jobs:
           # TODO check for existence of image
           # - run: docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:129.0
           echo "matrix={\"include\":$JSON_STRING}" >> $GITHUB_OUTPUT
+          MATRIX={\"include\":$JSON_STRING}
+          echo $MATRIX
   build_and_release_all_docker_images:
     strategy:
       max-parallel: 1
