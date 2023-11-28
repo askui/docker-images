@@ -35,7 +35,9 @@ jobs:
   build_and_release_all_docker_images:
     strategy:
       max-parallel: 1
-      matrix: ${{fromJson(needs.check_latest_selenium_chrome_tags.outputs.outputmatrix}}
+      matrix: 
+        includes:
+          ${{ fromJson(needs.check_latest_selenium_chrome_tags.outputs.outputmatrix }}
     uses: ./.github/workflows/docker-images-base-workflow.yml
     with:
       version: ${{ env.ASKUI_VERSION }} ## askui version
