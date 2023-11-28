@@ -36,10 +36,6 @@ jobs:
     strategy:
       max-parallel: 1
       matrix: ${{MATRIX}}
-        TODO remove this
-        environment: 
-          - name: chrome
-            version: 117.0
     uses: ./.github/docker-images-base-workflow.yml
     with:
       version: ${{ env.ASKUI_VERSION }} ## askui version
