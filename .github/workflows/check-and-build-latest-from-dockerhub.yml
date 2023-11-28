@@ -16,15 +16,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - run: curl -sL https://hub.docker.com/v2/repositories/selenium/standalone-chrome/tags\?page_size\=100 | jq -r '.results[] | select(.name | contains(".")) | .name | if contains("-") then split("-")[1] else . end | select(. | contains("."))' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > tags.conf
-      - run: echo tags.conf
       - run: >
-             JSON=$(while IFS= read -r line; do
-                               jq -n --arg version $line '{"name":"chrome", "version":$version}'
-                               done < "tags.conf" | jq -s .)
-             echo $JSON | jq '.[]'
-             JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
-             echo $JSON_STRING
+          curl -sL https://hub.docker.com/v2/repositories/selenium/standalone-chrome/tags\?page_size\=100 | jq -r '.results[] | select(.name | contains(".")) | .name | if contains("-") then split("-")[1] else . end | select(. | contains("."))' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > tags.conf
+          echo tags.conf
+          JSON=$(while IFS= read -r line; do
+                            jq -n --arg version $line '{"name":"chrome", "version":$version}'
+                            done < "tags.conf" | jq -s .)
+          echo $JSON | jq '.[]'
+          JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
+          echo $JSON_STRING
       # TODO check for existence of image
       # - run: docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:129.0
       - id: set-matrix
