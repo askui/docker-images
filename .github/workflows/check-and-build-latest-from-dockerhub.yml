@@ -1,0 +1,34 @@
+name: Build and Release Docker Images Base Workflow
+on: workflow_dispatch
+
+env:
+  DOCKER_REPOSITORY: askui-docker-images-repository-playground
+
+jobs:
+  check_latest_selenium_chrome_tags:
+    name: Get latest selenium chrome tags
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - run: |
+        ls -la
+        ./github/workflows/hub-tool tag ls --format json selenium/standalone-chrome | jq -r '.[].Name | if contains("-") then split("-")[1] else . end | split(":")[1]' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > versions.conf
+        echo config.json
+  # build_and_release_all_docker_images:
+  #   strategy:
+  #     max-parallel: 1
+  #     matrix:
+  #       environment: 
+  #         - name: chrome
+  #           version: 117.0
+  #   uses: ./.github/docker-images-base-workflow.yml
+  #   with:
+  #     version: ${{ inputs.version }}
+  #     environment_name: ${{ matrix.environment.name }}
+  #     environment_version: TODO get the version
+  #   secrets: inherit
+
