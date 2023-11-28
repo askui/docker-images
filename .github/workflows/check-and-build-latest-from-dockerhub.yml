@@ -37,7 +37,7 @@ jobs:
       max-parallel: 1
       matrix: 
         includes:
-          ${{ fromJson(needs.check_latest_selenium_chrome_tags.outputs.outputmatrix }}
+          ${{ fromJSON(needs.check_latest_selenium_chrome_tags.outputs.outputmatrix }}
     uses: ./.github/workflows/docker-images-base-workflow.yml
     with:
       version: ${{ env.ASKUI_VERSION }} ## askui version
