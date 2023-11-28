@@ -14,10 +14,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - run: |
-        ls -la
-        ./github/workflows/hub-tool tag ls --format json selenium/standalone-chrome | jq -r '.[].Name | if contains("-") then split("-")[1] else . end | split(":")[1]' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > versions.conf
-        echo config.json
+      - run: ls -la
+      - run: ./github/workflows/hub-tool tag ls --format json selenium/standalone-chrome | jq -r '.[].Name | if contains("-") then split("-")[1] else . end | split(":")[1]' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > versions.conf
+      - run: echo config.json
   # build_and_release_all_docker_images:
   #   strategy:
   #     max-parallel: 1
