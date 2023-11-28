@@ -29,9 +29,10 @@ jobs:
           echo $JSON | jq '.[]'
           JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
           echo $JSON_STRING
+          JSON_COMPACT=$(echo $JSON_STRING | jq -c .)
           # TODO check for existence of image
           # - run: docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:129.0
-          echo "matrix={\"include\":$JSON_STRING}" >> $GITHUB_OUTPUT
+          echo "matrix={\"include\":$JSON_COMPACT}" >> $GITHUB_OUTPUT
   build_and_release_all_docker_images:
     strategy:
       max-parallel: 1
