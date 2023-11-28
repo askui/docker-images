@@ -1,4 +1,4 @@
-name: Build and Release Docker Images Base Workflow
+name: Check and Build Latest From Dockerhub
 on: workflow_dispatch
 
 env:
