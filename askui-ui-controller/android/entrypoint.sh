@@ -6,7 +6,6 @@ if [ -n "$VERBOSE" ]; then
 fi
 
 echo starting the android emulator
- /usr/bin/supervisord --configuration supervisord.conf > emulator.log &
 adb wait-for-device
 is_it_up=$(adb shell getprop sys.boot_completed | tr -d '\r')
 while [ "$is_it_up" != "1" ]; do
@@ -26,8 +25,7 @@ adb shell ime enable com.android.adbkeyboard/.AdbIME
 
 adb devices
  sleep 5
- 
-./askui-ui-controller.AppImage --appimage-extract-and-run --no-sandbox -m -d 0 --host "0.0.0.0" -r android ${ASKUI_CONTROLLER_ARGS} &
-echo Extracting and starting AskUIController...
+
+/askui-ui-controller.AppImage --appimage-extract-and-run  --no-sandbox -m -d 0 --host "0.0.0.0" ${ASKUI_CONTROLLER_ARGS}
 
 wait
