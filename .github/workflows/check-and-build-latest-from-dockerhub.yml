@@ -22,8 +22,9 @@ jobs:
              JSON=$(while IFS= read -r line; do
                                jq -n --arg version $line '{"name":"chrome", "version":$version}'
                                done < "tags.conf" | jq -s .)
-      - run: echo $JSON | jq '.[]'
-      - run: JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
+             echo $JSON | jq '.[]'
+             JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
+             echo $JSON_STRING
       # TODO check for existence of image
       # - run: docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:129.0
       - id: set-matrix
