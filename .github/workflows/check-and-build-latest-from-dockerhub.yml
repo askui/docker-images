@@ -36,7 +36,7 @@ jobs:
           JSON_COMPACT=$(echo $JSON_STRING | jq -c .)
           echo "matrix={\"include\":$JSON_COMPACT}" >> $GITHUB_OUTPUT
           # if [ $? -eq 0 ]; then
-          echo "status=donothing" >> $GITHUB_OUTPUT
+          echo "status=doit" >> $GITHUB_OUTPUT
           # fi
   build_and_release_all_docker_images:
     needs: check_latest_selenium_chrome_tags
