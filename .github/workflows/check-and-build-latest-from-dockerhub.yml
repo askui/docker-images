@@ -25,7 +25,7 @@ jobs:
           JSON=$(while IFS= read -r line; do
                             docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ env.ASKUI_VERSION }}-chrome-${{ version }}-amd64
                             if [ $? -ne 0 ]; then
-                              jq -n --arg version $line '{"askui":${{ env.ASKUI_VERSION }},"name":"chrome","version":$version}'
+                              jq -n --arg version $line '{"askui":"0.13.1","name":"chrome","version":$version}'
                             fi
                             done < "tags.conf" | jq -s .)
           JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
