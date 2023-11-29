@@ -3,7 +3,7 @@ on: workflow_dispatch
 
 env:
   DOCKER_REPOSITORY: askui-docker-images-repository-playground
-  ASKUI_VERSION: 0.13.1
+  ASKUI_VERSION: "0.13.1"
 
 jobs:
   check_latest_selenium_chrome_tags:
@@ -22,16 +22,16 @@ jobs:
       - id: set-matrix
         run: |
           curl -sL https://hub.docker.com/v2/repositories/selenium/standalone-chrome/tags\?page_size\=100 | jq -r '.results[] | select(.name | contains(".")) | .name | if contains("-") then split("-")[1] else . end | select(. | contains("."))' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > tags.conf
-          echo tags.conf
           JSON=$(while IFS= read -r line; do
-                            jq -n --arg version $line '{"name":"chrome","version":$version}'
+                            docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ env.ASKUI_VERSION }}-chrome-${{ version }}-amd64
+                            if [ $? -ne 0 ]; then
+                              jq -n --arg version $line '{"name":"chrome","version":$version}'
+                            fi
                             done < "tags.conf" | jq -s .)
-          echo $JSON | jq '.[]'
+
           JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
           echo $JSON_STRING
           JSON_COMPACT=$(echo $JSON_STRING | jq -c .)
-          # TODO check for existence of image
-          # - run: docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:129.0
           echo "matrix={\"include\":$JSON_COMPACT}" >> $GITHUB_OUTPUT
   build_and_release_all_docker_images:
     needs: check_latest_selenium_chrome_tags
@@ -40,7 +40,7 @@ jobs:
       matrix: ${{ fromJSON(needs.check_latest_selenium_chrome_tags.outputs.matrix) }}
     uses: ./.github/workflows/docker-images-base-workflow.yml
     with:
-      version: "0.13.1" ## askui version
+      version: ${{ env.ASKUI_VERSION }}
       environment_name: ${{ matrix.name }} ## usually chrome
       environment_version: ${{ matrix.version }} ## chrome version
     secrets: inherit
