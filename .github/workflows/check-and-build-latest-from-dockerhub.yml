@@ -25,7 +25,6 @@ jobs:
           JSON=$(while IFS= read -r line; do
                             jq -n --arg version $line '{"name":"chrome","version":$version}'
                             done < "tags.conf" | jq -s .)
-          echo $JSON | jq '.[]'
           JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
           echo $JSON_STRING
           JSON_COMPACT=$(echo $JSON_STRING | jq -c .)
