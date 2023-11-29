@@ -22,7 +22,6 @@ jobs:
       - id: set-matrix
         run: |
           curl -sL https://hub.docker.com/v2/repositories/selenium/standalone-chrome/tags\?page_size\=100 | jq -r '.results[] | select(.name | contains(".")) | .name | if contains("-") then split("-")[1] else . end | select(. | contains("."))' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > tags.conf
-          echo tags.conf
           JSON=$(while IFS= read -r line; do
                             jq -n --arg version $line '{"name":"chrome","version":$version}'
                             done < "tags.conf" | jq -s .)
