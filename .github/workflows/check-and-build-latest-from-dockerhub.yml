@@ -1,5 +1,8 @@
 name: Check and Build Latest From Dockerhub
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron:  '59 23 * * *'
 
 env:
   DOCKER_REPOSITORY: askui-docker-images-repository-playground
@@ -23,16 +26,13 @@ jobs:
       - id: set-matrix
         run: |
           curl -sL https://hub.docker.com/v2/repositories/selenium/standalone-chrome/tags\?page_size\=100 | jq -r '.results[] | select(.name | contains(".")) | .name | if contains("-") then split("-")[1] else . end | select(. | contains(".")) | select(. | startswith("4") | not)' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > tags.conf
-          cat tags.conf
           JSON=$(while IFS= read -r line; do
                             docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ env.ASKUI_VERSION_CONTROLLER_VERSION }}-chrome-${line}-amd64 > /dev/null 2>&1
                             if [ $? -ne 0 ]; then
                               jq -n --arg version $line '{"askui":"${{ env.ASKUI_VERSION_CONTROLLER_VERSION }}","name":"chrome","version":$version}'
                             fi
                             done < "tags.conf" | jq -s .)
-          echo $JSON
           JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
-          echo $JSON_STRING
           JSON_COMPACT=$(echo $JSON_STRING | jq -c .)
           echo "matrix={\"include\":$JSON_COMPACT}" >> $GITHUB_OUTPUT
           if [[ "$JSON_STRING" == "[]" ]]; then
