@@ -40,7 +40,7 @@ jobs:
           # fi
   build_and_release_all_docker_images:
     needs: check_latest_selenium_chrome_tags
-    if: ${{ !contains(needs.check_latest_selenium_chrome_tags.outputs.status, "donothing") }}
+    if: ${{ !contains(needs.check_latest_selenium_chrome_tags.outputs.status, 'donothing') }}
     strategy:
       max-parallel: 1
       matrix: ${{ fromJSON(needs.check_latest_selenium_chrome_tags.outputs.matrix) }}
