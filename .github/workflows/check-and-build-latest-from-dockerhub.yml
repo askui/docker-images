@@ -3,7 +3,7 @@ on: workflow_dispatch
 
 env:
   DOCKER_REPOSITORY: askui-docker-images-repository-playground
-  ASKUI_VERSION: 0.13.1
+  ASKUI_VERSION_CONTROLLER_VERSION: 0.11.2
 
 jobs:
   check_latest_selenium_chrome_tags:
@@ -25,9 +25,9 @@ jobs:
           curl -sL https://hub.docker.com/v2/repositories/selenium/standalone-chrome/tags\?page_size\=100 | jq -r '.results[] | select(.name | contains(".")) | .name | if contains("-") then split("-")[1] else . end | select(. | contains("."))' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > tags.conf
           cat tags.conf
           JSON=$(while IFS= read -r line; do
-                            docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ env.ASKUI_VERSION }}-chrome-${line}-amd64 > /dev/null 2>&1
+                            docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ env.ASKUI_VERSION_CONTROLLER_VERSION }}-chrome-${line}-amd64 > /dev/null 2>&1
                             if [ $? -ne 0 ]; then
-                              jq -n --arg version $line '{"askui":"0.13.1","name":"chrome","version":$version}'
+                              jq -n --arg version $line '{"askui":"${{ env.ASKUI_VERSION_CONTROLLER_VERSION }}","name":"chrome","version":$version}'
                             fi
                             done < "tags.conf" | jq -s .)
           echo $JSON
