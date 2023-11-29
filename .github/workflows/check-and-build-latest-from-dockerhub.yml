@@ -22,11 +22,11 @@ jobs:
       - id: set-matrix
         run: |
           curl -sL https://hub.docker.com/v2/repositories/selenium/standalone-chrome/tags\?page_size\=100 | jq -r '.results[] | select(.name | contains(".")) | .name | if contains("-") then split("-")[1] else . end | select(. | contains("."))' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > tags.conf
+                            # docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ env.ASKUI_VERSION }}-chrome-${{ version }}-amd64
+                            # if [ $? -ne 0 ]; then
+                            # fi
           JSON=$(while IFS= read -r line; do
-                            docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ env.ASKUI_VERSION }}-chrome-${{ version }}-amd64
-                            if [ $? -ne 0 ]; then
                               jq -n --arg version $line '{"askui":"0.13.1","name":"chrome","version":$version}'
-                            fi
                             done < "tags.conf" | jq -s .)
           JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
           echo $JSON_STRING
