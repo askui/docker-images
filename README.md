@@ -1,16 +1,32 @@
 # docker-images
 Docker Images Including AskUI Components.
 
-The images are published to the Docker Hub registry at [askui Docker Registry](https://hub.docker.com/repository/docker/askuigmbh/askui-ui-controller/general)
+The images are published to the Docker Hub registry at [askui Docker Registry](https://hub.docker.com/repository/docker/askuigmbh/askui-ui-controller/general).
+
+They contain the AskUI UiController/Remote Device Controller that listens on port `6769` and a chrome browser/Android emulator. You have to configure the `uiControllerUrl` in your `UiControlClient` initialization in `askui-helper.ts` as described in [our docs](https://docs.askui.com/docs/api/Configuration/askui-ui-control-client#uicontrollerurl) to connect to it.
 
 > ❗️ The images currently can __NOT__ be successfully run on Apple Silicon!
+
+## Tag Naming Schema
+We use the following tag schema:
+
+``` bash
+<controller-version>-<browser-name>-<browser-version>-amd64
+
+# browser-name: chrome only for now
+
+# Example
+0.11.2-chrome-119.0.6045.123-amd
+```
+
+> ❗️ <controller-version> is _NOT_ the AskUI version ❗️
 
 ## Quickstart: Run Container
 
 ### Chrome
 
 ```shell
-docker run -p 6769:6769 -p 7900:7900 askuigmbh/askui-ui-controller:0.11.2-chrome-117.0-amd64
+docker run -p 6769:6769 -p 7900:7900 askuigmbh/askui-ui-controller:0.11.2-chrome-119.0-amd64
 ```
 
 Ports:
