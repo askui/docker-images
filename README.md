@@ -45,7 +45,9 @@ Run args:
 * `ASKUI_CONTROLLER_ARGS`: default empty
 * `VERBOSE`: default empty
 
-### Android
+### Android *experimental*
+
+> ❗️ Only experimental: Use at own risk ❗️
 
 ```shell
 docker run --rm --privileged -p 6080:6080 askuigmbh/askui-ui-controller:0.11.2-android-13.0

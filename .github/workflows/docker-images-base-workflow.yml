@@ -28,7 +28,7 @@ on:
         type: string
 
 env:
-  DOCKER_REPOSITORY: askui-docker-images-repository-playground
+  DOCKER_REPOSITORY: askui-ui-controller
 
 jobs:
   build_and_release_docker_images:
