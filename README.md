@@ -69,10 +69,6 @@ Possible build-args:
 * `CHROME_VERSION` (default 117.0.5938.132): All chrome versions.
 * `ASKUI_CONTROLLER_VERSION`: Default is latest version. Currently `0.11.2`.
 
-Enable VNC:
-
-* Add `-e ENABLE_VNC=true` and expose the port `5900` like this `-p 5900:5900`
-
 ### Android
 
 ```shell
