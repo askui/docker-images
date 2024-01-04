@@ -23,6 +23,8 @@ We use the following tag schema:
 
 ## Quickstart: Run Container
 
+> ℹ️ Follow our detailed [Usage Guide](https://docs.askui.com/docs/general/Integrations/containers#usage) if you are not familiar with AskUI yet.
+
 ### Chrome
 
 ```shell

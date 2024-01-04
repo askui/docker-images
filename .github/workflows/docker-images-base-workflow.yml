@@ -77,3 +77,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: askuigmbh/${{ env.DOCKER_REPOSITORY }}
+          short-description: 'AskUI UI Controller bundled with a browser and noVNC. IMPORTANT: Use a specific tag not latest!'
