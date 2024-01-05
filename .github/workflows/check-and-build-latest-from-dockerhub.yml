@@ -52,5 +52,6 @@ jobs:
       controller_version: ${{ matrix.askuicontroller }}
       environment_name: ${{ matrix.name }} ## usually chrome
       environment_version: ${{ matrix.version }} ## chrome version
+      tag: ${{ matrix.tag }}
     secrets: inherit
 
