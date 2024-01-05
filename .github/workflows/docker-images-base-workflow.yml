@@ -2,7 +2,7 @@ name: Build and Release Docker Images Base Workflow
 on:
   workflow_call:
     inputs:
-      version:
+      controller_version:
         description: Version of the linux x64 binaries
         required: true
         type: string
@@ -12,10 +12,14 @@ on:
       environment_version:
         required: true
         type: string
+      tag:
+        description: The Docker tag
+        required: true
+        type: string
 
   workflow_dispatch:
     inputs:
-      version:
+      controller_version:
         description: Version of the linux x64 binaries 
         required: true
         type: string
@@ -24,6 +28,10 @@ on:
         type: choice
         options: [chrome, android] ## No firefox for now
       environment_version:
+        required: true
+        type: string
+      tag:
+        description: The Docker tag
         required: true
         type: string
 
@@ -51,20 +59,20 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}-amd64
+          tags: askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ inputs.tag }}-amd64
           context: ./askui-ui-controller/chrome
           file: askui-ui-controller/${{ inputs.environment_name }}/Dockerfile
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
             "CHROME_VERSION=${{ inputs.environment_version }}"
-            "ASKUI_CONTROLLER_VERSION=${{ inputs.version }}"
+            "ASKUI_CONTROLLER_VERSION=${{ inputs.controller_version }}"
       - name: Build and Release Android Docker Image
         if: inputs.environment_name == 'android'
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ inputs.version }}-${{ inputs.environment_name }}-${{ inputs.environment_version }}
+          tags: askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ inputs.tag }}
           context: ./askui-ui-controller/android
           file: askui-ui-controller/${{ inputs.environment_name }}/Dockerfile
           cache-from: type=gha

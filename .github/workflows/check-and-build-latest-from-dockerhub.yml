@@ -29,16 +29,17 @@ jobs:
           JSON=$(while IFS= read -r line; do
                             docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ env.ASKUI_VERSION_CONTROLLER_VERSION }}-chrome-${line}-amd64 > /dev/null 2>&1
                             if [ $? -ne 0 ]; then
-                              jq -n --arg version $line '{"askui":"${{ env.ASKUI_VERSION_CONTROLLER_VERSION }}","name":"chrome","version":$version}'
+                              jq -n --arg version $line '{"askuicontroller":"${{ env.ASKUI_VERSION_CONTROLLER_VERSION }}","name":"chrome","version":$version,"tag":"{{ $env.ASKUI_VERSION_CONTROLLER_VERSION }}-chrome-\($version)-amd64"}'
                             fi
                             done < "tags.conf" | jq -s .)
           JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
-          JSON_COMPACT=$(echo $JSON_STRING | jq -c .)
-          echo "matrix={\"include\":$JSON_COMPACT}" >> $GITHUB_OUTPUT
           if [[ "$JSON_STRING" == "[]" ]]; then
             echo "status=donothing" >> $GITHUB_OUTPUT
           else
             echo "status=doit" >> $GITHUB_OUTPUT
+            # Duplicate the first entry and tag it with latest
+            JSON_COMPACT=$(echo $JSON_STRING | jq -c '[.[0]] + .[0:] | .[0].tag = "latest"')
+            echo "matrix={\"include\":$JSON_COMPACT}" >> $GITHUB_OUTPUT
           fi
   build_and_release_all_docker_images:
     needs: check_latest_selenium_chrome_tags
@@ -48,7 +49,7 @@ jobs:
       matrix: ${{ fromJSON(needs.check_latest_selenium_chrome_tags.outputs.matrix) }}
     uses: ./.github/workflows/docker-images-base-workflow.yml
     with:
-      version: ${{ matrix.askui }}
+      controller_version: ${{ matrix.askuicontroller }}
       environment_name: ${{ matrix.name }} ## usually chrome
       environment_version: ${{ matrix.version }} ## chrome version
     secrets: inherit
