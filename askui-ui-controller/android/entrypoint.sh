@@ -15,17 +15,15 @@ while [ "$is_it_up" != "1" ]; do
 done
 sleep 10
 echo The emulator is started
-curl "https://raw.githubusercontent.com/senzhk/ADBKeyBoard/v2.0/ADBKeyboard.apk" --output /root/ADBKeyboard.apk
+curl "https://raw.githubusercontent.com/senzhk/ADBKeyBoard/v2.0/ADBKeyboard.apk" --output /tmp/ADBKeyboard.apk
 echo installing ADB keyboard
-adb install -r /root/ADBKeyboard.apk
+adb install -r /tmp/ADBKeyboard.apk
 sleep 2
 adb shell settings put secure default_input_method com.android.adbkeyboard/.AdbIME
 sleep 2
 adb shell ime enable com.android.adbkeyboard/.AdbIME
 
 adb devices
- sleep 5
+sleep 5
 
-/askui-ui-controller.AppImage --appimage-extract-and-run  --no-sandbox -m -d 0 --host "0.0.0.0" ${ASKUI_CONTROLLER_ARGS}
-
-wait
+/askui-ui-controller.AppImage --appimage-extract-and-run  --no-sandbox -m -d 0 --host "0.0.0.0" "${ASKUI_CONTROLLER_ARGS}"
