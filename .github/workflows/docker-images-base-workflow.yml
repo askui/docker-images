@@ -59,7 +59,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ inputs.tag }}-amd64
+          tags: askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ inputs.tag }}
           context: ./askui-ui-controller/chrome
           file: askui-ui-controller/${{ inputs.environment_name }}/Dockerfile
           cache-from: type=gha
