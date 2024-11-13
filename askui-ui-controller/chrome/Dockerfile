@@ -3,18 +3,14 @@ FROM selenium/standalone-chrome:${CHROME_VERSION}
 
 USER root
 
-ARG ASKUI_SUITE_VERSION=24.9.1
+ARG ASKUI_SUITE_VERSION=24.10.1
 RUN curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-User-Installer-Linux-x64-Full.run" "https://files.askui.com/releases/Installer/${ASKUI_SUITE_VERSION}/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-x64-Full.run" && \
     chmod +x /AskUI-Suite-User-Installer-Linux-x64-Full.run && \
     echo $(bash /AskUI-Suite-User-Installer-Linux-x64-Full.run  --help) && \
-    bash /AskUI-Suite-User-Installer-Linux-x64-Full.run --accept-license --silent-mode
+    bash /AskUI-Suite-User-Installer-Linux-x64-Full.run --accept-license --silent-mode && \
+    rm -f /AskUI-Suite-User-Installer-Linux-x64-Full.run
 
-RUN ls -la ~
-RUN cat ~/.bashrc
-RUN ls -la /home/seluser/.askui-suites/Binaries/askui-controller
-RUN chown -R seluser:seluser /home/seluser/.askui-suites/
-RUN chown -R seluser:seluser /home/seluser/.cache/
-RUN ls -la /home/seluser/.cache/
+RUN chown -R seluser:seluser /home/seluser/
 
 COPY selenium.conf /etc/supervisor/conf.d/
 COPY start-askui-ui-controller.sh start-google-chrome.sh /opt/bin/
