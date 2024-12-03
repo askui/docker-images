@@ -3,9 +3,14 @@ FROM selenium/standalone-chrome:${CHROME_VERSION}
 
 USER root
 
-ARG ASKUI_CONTROLLER_VERSION=0.11.2
-RUN curl -L --progress-bar --retry 5 --continue-at - -o "/askui-ui-controller.AppImage" "https://files.askui.com/releases/askui-ui-controller/v${ASKUI_CONTROLLER_VERSION}/linux/x64/askui-ui-controller.AppImage" && \
-    chmod +x /askui-ui-controller.AppImage
+ARG ASKUI_SUITE_VERSION=24.10.1
+RUN curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-User-Installer-Linux-x64-Full.run" "https://files.askui.com/releases/Installer/${ASKUI_SUITE_VERSION}/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-x64-Full.run" && \
+    chmod +x /AskUI-Suite-User-Installer-Linux-x64-Full.run && \
+    echo $(bash /AskUI-Suite-User-Installer-Linux-x64-Full.run  --help) && \
+    bash /AskUI-Suite-User-Installer-Linux-x64-Full.run --accept-license --silent-mode && \
+    rm -f /AskUI-Suite-User-Installer-Linux-x64-Full.run
+
+RUN chown -R seluser:seluser /home/seluser/
 
 COPY selenium.conf /etc/supervisor/conf.d/
 COPY start-askui-ui-controller.sh start-google-chrome.sh /opt/bin/
