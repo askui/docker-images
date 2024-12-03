@@ -50,7 +50,7 @@ jobs:
       matrix: ${{ fromJSON(needs.check_latest_selenium_chrome_tags.outputs.matrix) }}
     uses: ./.github/workflows/docker-images-base-workflow.yml
     with:
-      controller_version: ${{ matrix.askuicontroller }}
+      askui_suite_version: ${{ matrix.askuicontroller }}
       environment_name: ${{ matrix.name }} ## usually chrome
       environment_version: ${{ matrix.version }} ## chrome version
       tag: ${{ matrix.tag }}
