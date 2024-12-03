@@ -2,8 +2,8 @@ name: Build and Release Docker Images Base Workflow
 on:
   workflow_call:
     inputs:
-      controller_version:
-        description: Version of the linux x64 controller binaries
+      askui_suite_version:
+        description: Version of the Linux AskUI Suite
         required: true
         type: string
       environment_name:
@@ -19,7 +19,7 @@ on:
 
   workflow_dispatch:
     inputs:
-      controller_version:
+      askui_suite_version:
         description: Version of the linux x64 binaries 
         required: true
         type: string
@@ -66,7 +66,7 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: |
             "CHROME_VERSION=${{ inputs.environment_version }}"
-            "ASKUI_CONTROLLER_VERSION=${{ inputs.controller_version }}"
+            "ASKUI_SUITE_VERSION=${{ inputs.askui_suite_version }}"
       - name: Build and Release Android Docker Image
         if: inputs.environment_name == 'android'
         uses: docker/build-push-action@v3
