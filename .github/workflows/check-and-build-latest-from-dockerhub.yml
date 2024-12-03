@@ -6,7 +6,7 @@ on:
 
 env:
   DOCKER_REPOSITORY: askui-ui-controller
-  ASKUI_VERSION_CONTROLLER_VERSION: 0.11.2
+  ASKUI_SUITE_VERSION: 24.10.1
 
 jobs:
   check_latest_selenium_chrome_tags:
@@ -27,9 +27,9 @@ jobs:
         run: |
           curl -sL https://hub.docker.com/v2/repositories/selenium/standalone-chrome/tags\?page_size\=100 | jq -r '.results[] | select(.name | contains(".")) | .name | if contains("-") then split("-")[1] else . end | select(. | contains(".")) | select(. | startswith("4") | not)' | sort -V -r -u | grep -Ev '(dev|latest|beta|for)' > tags.conf
           JSON=$(while IFS= read -r line; do
-                            docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ env.ASKUI_VERSION_CONTROLLER_VERSION }}-chrome-${line}-amd64 > /dev/null 2>&1
+                            docker manifest inspect askuigmbh/${{ env.DOCKER_REPOSITORY }}:${{ env.ASKUI_SUITE_VERSION }}-chrome-${line}-amd64 > /dev/null 2>&1
                             if [ $? -ne 0 ]; then
-                              jq -n --arg controllerversion "${{ env.ASKUI_VERSION_CONTROLLER_VERSION }}" --arg version $line '{"askuicontroller":$controllerversion,"name":"chrome","version":$version,"tag":"\($controllerversion)-chrome-\($version)-amd64"}'
+                              jq -n --arg controllerversion "${{ env.ASKUI_SUITE_VERSION }}" --arg version $line '{"askuicontroller":$controllerversion,"name":"chrome","version":$version,"tag":"\($controllerversion)-chrome-\($version)-amd64"}'
                             fi
                             done < "tags.conf" | jq -s .)
           JSON_STRING=$( jq -n --argjson json "$JSON" '$json')
