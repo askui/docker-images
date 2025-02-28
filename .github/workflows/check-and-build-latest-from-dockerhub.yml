@@ -6,7 +6,7 @@ on:
 
 env:
   DOCKER_REPOSITORY: askui-ui-controller
-  ASKUI_SUITE_VERSION: 24.10.1
+  ASKUI_SUITE_VERSION: 24.12.1
 
 jobs:
   check_latest_selenium_chrome_tags:
