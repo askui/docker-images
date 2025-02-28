@@ -11,12 +11,12 @@ They contain the AskUI UiController/Remote Device Controller that listens on por
 We use the following tag schema:
 
 ``` bash
-<controller-version>-<browser-name>-<browser-version>-amd64
+<askui-suite-version>-<browser-name>-<browser-version>-amd64
 
 # browser-name: chrome only for now
 
 # Example
-0.11.2-chrome-119.0.6045.123-amd64
+24.12.1-chrome-132.0-amd64
 ```
 
 > ❗️ `<controller-version>` is _NOT_ the AskUI version ❗️
@@ -28,7 +28,7 @@ We use the following tag schema:
 ### Chrome
 
 ```shell
-docker run -p 6769:6769 -p 7900:7900 askuigmbh/askui-ui-controller:0.11.2-chrome-119.0-amd64
+docker run -p 6769:6769 -p 7900:7900 askuigmbh/askui-ui-controller:24.12.1-chrome-132.0-amd64
 ```
 
 Ports:
