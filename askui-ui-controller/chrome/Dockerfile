@@ -10,7 +10,9 @@ RUN curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-User-Insta
     bash /AskUI-Suite-User-Installer-Linux-x64-Full.run --accept-license --silent-mode && \
     rm -f /AskUI-Suite-User-Installer-Linux-x64-Full.run
 
-RUN chown -R seluser:seluser /home/seluser/
+
+RUN chown -R seluser:seluser /home/seluser/.askui-suites/
+RUN chown -R seluser:seluser /home/seluser/.cache
 
 COPY selenium.conf /etc/supervisor/conf.d/
 COPY start-askui-ui-controller.sh start-google-chrome.sh /opt/bin/
