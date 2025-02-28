@@ -71,7 +71,7 @@ docker build -t ui-controller:chrome .
 Possible build-args:
 
 * `CHROME_VERSION` (default 117.0.5938.132): All chrome versions.
-* `ASKUI_CONTROLLER_VERSION`: Default is latest version. Currently `0.11.2`.
+* `ASKUI_SUITE_VERSION`: Default is latest version. Currently `24.12.1`.
 
 ### Android
 
