@@ -3,7 +3,7 @@ FROM selenium/standalone-chrome:${CHROME_VERSION}
 
 USER root
 
-ARG ASKUI_SUITE_VERSION=24.10.1
+ARG ASKUI_SUITE_VERSION=24.12.1
 RUN curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-User-Installer-Linux-x64-Full.run" "https://files.askui.com/releases/Installer/${ASKUI_SUITE_VERSION}/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-x64-Full.run" && \
     chmod +x /AskUI-Suite-User-Installer-Linux-x64-Full.run && \
     echo $(bash /AskUI-Suite-User-Installer-Linux-x64-Full.run  --help) && \
