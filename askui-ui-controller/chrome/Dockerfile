@@ -16,6 +16,7 @@ RUN curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-User-Insta
 
 
 RUN chown -R seluser:seluser /home/seluser/.askui-suites/
+RUN chmod -R 755 /home/seluser/.askui-suites/
 RUN chown -R seluser:seluser /home/seluser/.cache
 
 COPY selenium.conf /etc/supervisor/conf.d/
