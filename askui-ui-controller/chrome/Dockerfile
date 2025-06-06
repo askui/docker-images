@@ -8,11 +8,11 @@ EXPOSE 7900
 USER root
 
 ARG ASKUI_SUITE_VERSION=24.12.1
-RUN curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-User-Installer-Linux-x64-Full.run" "https://files.askui.com/releases/Installer/${ASKUI_SUITE_VERSION}/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-x64-Full.run" && \
-    chmod +x /AskUI-Suite-User-Installer-Linux-x64-Full.run && \
-    echo $(bash /AskUI-Suite-User-Installer-Linux-x64-Full.run  --help) && \
-    bash /AskUI-Suite-User-Installer-Linux-x64-Full.run --accept-license --silent-mode && \
-    rm -f /AskUI-Suite-User-Installer-Linux-x64-Full.run
+RUN curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-User-Installer-Linux-AMD64-Web.run" "https://files.askui.com/releases/Installer/${ASKUI_SUITE_VERSION}/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run" && \
+    chmod +x /AskUI-Suite-User-Installer-Linux-AMD64-Web.run && \
+    echo $(bash /AskUI-Suite-User-Installer-Linux-AMD64-Web.run  --help) && \
+    bash /AskUI-Suite-User-Installer-Linux-AMD64-Web.run --accept-license --silent-mode && \
+    rm -f /AskUI-Suite-User-Installer-Linux-AMD64-Web.run
 
 
 RUN chown -R seluser:seluser /home/seluser/.askui-suites/
