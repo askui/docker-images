@@ -7,7 +7,7 @@ EXPOSE 7900
 
 USER root
 
-ARG ASKUI_SUITE_VERSION=24.12.1
+ARG ASKUI_SUITE_VERSION=25.6.1
 RUN curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-User-Installer-Linux-AMD64-Web.run" "https://files.askui.com/releases/Installer/${ASKUI_SUITE_VERSION}/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run" && \
     chmod +x /AskUI-Suite-User-Installer-Linux-AMD64-Web.run && \
     echo $(bash /AskUI-Suite-User-Installer-Linux-AMD64-Web.run  --help) && \
