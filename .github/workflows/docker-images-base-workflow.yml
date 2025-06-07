@@ -23,6 +23,7 @@ on:
         description: Version of the linux x64 binaries 
         required: true
         type: string
+        default: '25.6.1'
       environment_name:
         required: true
         type: choice
@@ -30,6 +31,7 @@ on:
       environment_version:
         required: true
         type: string
+        default: '129.0'
       tag:
         description: The Docker tag
         required: true
