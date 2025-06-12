@@ -28,7 +28,7 @@ We use the following tag schema:
 ### Chrome
 
 ```shell
-docker run -p 6769:6769 -p 7900:7900 -p 23000:23000 askuigmbh/askui-ui-controller:25.6.1-chrome-129.0-amd64
+docker run -p 6769:6769 -p 7900:7900 askuigmbh/askui-ui-controller:24.12.1-chrome-132.0-amd64
 ```
 
 Ports:
