@@ -1,4 +1,4 @@
-ARG CHROME_VERSION=117.0
+ARG CHROME_VERSION=129.0
 FROM selenium/standalone-chrome:${CHROME_VERSION}
 
 EXPOSE 6769
@@ -7,16 +7,18 @@ EXPOSE 7900
 
 USER root
 
-ARG ASKUI_SUITE_VERSION=24.12.1
-RUN curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-User-Installer-Linux-x64-Full.run" "https://files.askui.com/releases/Installer/${ASKUI_SUITE_VERSION}/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-x64-Full.run" && \
-    chmod +x /AskUI-Suite-User-Installer-Linux-x64-Full.run && \
-    echo $(bash /AskUI-Suite-User-Installer-Linux-x64-Full.run  --help) && \
-    bash /AskUI-Suite-User-Installer-Linux-x64-Full.run --accept-license --silent-mode && \
-    rm -f /AskUI-Suite-User-Installer-Linux-x64-Full.run
+ARG ASKUI_SUITE_VERSION=25.6.1
+RUN apt-get update && \
+    apt-get install -y xz-utils && \
+    curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run" "https://files.askui.com/releases/Installer/${ASKUI_SUITE_VERSION}/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run" && \
+    chmod +x /AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run && \
+    echo $(bash /AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run  --help) && \
+    bash /AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run --silent-mode --accept-license && \
+    rm -f /AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run
 
 
-RUN chown -R seluser:seluser /home/seluser/.askui-suites/
-RUN chmod -R 755 /home/seluser/.askui-suites/
+RUN chown -R seluser:seluser /home/seluser/.askui-suite/
+RUN chmod -R 755 /home/seluser/.askui-suite/
 RUN chown -R seluser:seluser /home/seluser/.cache
 
 COPY selenium.conf /etc/supervisor/conf.d/
