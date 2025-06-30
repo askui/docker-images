@@ -7,7 +7,7 @@ EXPOSE 7900
 
 USER root
 
-ARG ASKUI_SUITE_VERSION=25.6.2
+ARG ASKUI_SUITE_VERSION=25.6.3
 RUN apt-get update && \
     apt-get install -y xz-utils && \
     curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run" "https://files.askui.com/releases/Installer/${ASKUI_SUITE_VERSION}/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run" && \
@@ -17,8 +17,8 @@ RUN apt-get update && \
     rm -f /AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run
 
 
-RUN chown -R seluser:seluser /home/seluser/.askui-suite/
-RUN chmod -R 755 /home/seluser/.askui-suite/
+RUN chown -R seluser:seluser /home/seluser/.askui-suites/
+RUN chmod -R 755 /home/seluser/.askui-suites/
 RUN chown -R seluser:seluser /home/seluser/.cache
 RUN mkdir -p /home/seluser/.askui && chown -R seluser:seluser /home/seluser/.askui
 
