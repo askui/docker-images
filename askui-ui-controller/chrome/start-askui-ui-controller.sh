@@ -13,4 +13,4 @@ while ! xdpyinfo -display $DISPLAY > /dev/null 2>&1; do
   sleep 1
 done
 
-/home/seluser/.askui-suites/Binaries/askui-controller --no-sandbox -m -d 0 --host "0.0.0.0" --hide-overlay ${ASKUI_CONTROLLER_ARGS}
+/home/seluser/.askui-suite/DependencyCache/Links/UIController/askui-controller --no-sandbox -m -d 0 --host "0.0.0.0" --hide-overlay ${ASKUI_CONTROLLER_ARGS}

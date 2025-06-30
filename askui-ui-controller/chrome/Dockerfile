@@ -1,4 +1,4 @@
-ARG CHROME_VERSION=134.0
+ARG CHROME_VERSION=132.0
 FROM selenium/standalone-chrome:${CHROME_VERSION}
 
 EXPOSE 6769
@@ -17,8 +17,8 @@ RUN apt-get update && \
     rm -f /AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run
 
 
-RUN chown -R seluser:seluser /home/seluser/.askui-suites/
-RUN chmod -R 755 /home/seluser/.askui-suites/
+RUN mkdir -p /home/seluser/.askui-suite && chown -R seluser:seluser /home/seluser/.askui-suite/
+RUN chmod -R 755 /home/seluser/.askui-suite/
 RUN chown -R seluser:seluser /home/seluser/.cache
 RUN mkdir -p /home/seluser/.askui && chown -R seluser:seluser /home/seluser/.askui
 
