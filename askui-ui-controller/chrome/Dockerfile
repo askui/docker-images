@@ -7,7 +7,7 @@ EXPOSE 7900
 
 USER root
 
-ARG ASKUI_SUITE_VERSION=25.6.3
+ARG ASKUI_SUITE_VERSION=25.7.1
 RUN apt-get update && \
     apt-get install -y xz-utils && \
     curl -L --progress-bar --retry 5 --continue-at - -o "/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run" "https://files.askui.com/releases/Installer/${ASKUI_SUITE_VERSION}/AskUI-Suite-${ASKUI_SUITE_VERSION}-User-Installer-Linux-AMD64-Web.run" && \
@@ -21,6 +21,7 @@ RUN mkdir -p /home/seluser/.askui-suite && chown -R seluser:seluser /home/seluse
 RUN chmod -R 755 /home/seluser/.askui-suite/
 RUN chown -R seluser:seluser /home/seluser/.cache
 RUN mkdir -p /home/seluser/.askui && chown -R seluser:seluser /home/seluser/.askui
+
 
 COPY selenium.conf /etc/supervisor/conf.d/
 COPY start-askui-ui-controller.sh start-google-chrome.sh /opt/bin/
